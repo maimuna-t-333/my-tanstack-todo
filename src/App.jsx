@@ -19,6 +19,13 @@ async function addTodo(title){
   return data;
 }
 
+async function deleteTodo(id){
+  const response=await fetch(`https://jsonplaceholder.typicode.com/todos/${id}`, {
+    method: 'DELETE'
+  });
+  return id;
+}
+
 function App() { 
 
   const [title, setTitle]=useState('');
@@ -39,6 +46,15 @@ function App() {
     }
   })
 
+  const deleteMutation=useMutation({
+    mutationFn:deleteTodo,
+    onSuccess:(deletedId)=>{
+      queryClient.setQueryData(['todos'],(oldTodos)=>{
+        return oldTodos.filter((todo)=>todo.id!==deletedId);
+      })
+    }
+  })
+
   if(isLoading){
     return <h1>Loading...</h1>
   }
@@ -51,9 +67,12 @@ function App() {
       <section id="center">
         <ul>
           {data.map((todo)=>(
-            <li key={todo.id}>{todo.title}</li>
+            <li key={todo.id}>{todo.title}
+            <button onClick={()=>{deleteMutation.mutate(todo.id)}}>X</button>
+            </li>
           ))}
         </ul>
+        
         <form onSubmit={(e)=>{
           e.preventDefault();
           mutation.mutate(title)
