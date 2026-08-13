@@ -1,4 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import { useState } from 'react';
 
 async function fetchData(){
   const response=await fetch('https://jsonplaceholder.typicode.com/todos?_limit=10');
@@ -20,6 +21,7 @@ async function addTodo(title){
 
 function App() { 
 
+  const [title, setTitle]=useState('');
   const queryClient=useQueryClient();
   
   const {data, isLoading, isError}=useQuery({
@@ -30,13 +32,12 @@ function App() {
 
   const mutation=useMutation({
     mutationFn:addTodo,
-    onSuccess:()=>{
-      console.log('added')
+    onSuccess:(newTodo)=>{
+      queryClient.setQueryData(['todos'],(oldTodos)=>{
+         return [newTodo, ...oldTodos];
+      })
     }
   })
-
-  
-  
 
   if(isLoading){
     return <h1>Loading...</h1>
@@ -53,6 +54,15 @@ function App() {
             <li key={todo.id}>{todo.title}</li>
           ))}
         </ul>
+        <form onSubmit={(e)=>{
+          e.preventDefault();
+          mutation.mutate(title)
+        }}>
+           <input value={title} onChange={(e)=>{
+          setTitle(e.target.value)
+        }}/>
+        <button type="submit">Add</button>
+          </form>
       </section>
     </>
   )
