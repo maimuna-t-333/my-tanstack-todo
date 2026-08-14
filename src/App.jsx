@@ -55,7 +55,10 @@ function App() {
     },
     onMutate:async(deletedId)=>{
       const previousTodos=queryClient.setQueryData(['todos']);
-      
+      queryClient.setQueriesData(['todos'],(oldTodos)=>{
+        return oldTodos.filter((todo)=>todo.id!==deletedId);
+      })
+      return {previousTodos};
     }
   })
 
