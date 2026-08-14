@@ -61,7 +61,7 @@ function App() {
       return {previousTodos};
     },
     onError:(err, deletedId, context)=>{
-      
+      queryClient.setQueryData(['todos'], context.previousTodos);
     }
   })
 
