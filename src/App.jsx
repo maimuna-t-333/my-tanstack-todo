@@ -55,7 +55,7 @@ function App() {
     },
     onMutate:async(deletedId)=>{
       await queryClient.setQueryData(['todos'],(oldTodos)=>{
-        re
+        return oldTodos.filter((todo)=>todo.id!==deletedId);
       })
     }
   })
