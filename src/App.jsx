@@ -52,8 +52,10 @@ function App() {
       queryClient.setQueryData(['todos'],(oldTodos)=>{
         return oldTodos.filter((todo)=>todo.id!==deletedId);
       })
+    },
+    onMutate:async(deletedId)=>{
+      await queryClient.cancelQueries(['todos']);
     }
-    
   })
 
   if(isLoading){
