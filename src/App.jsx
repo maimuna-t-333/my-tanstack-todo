@@ -23,7 +23,7 @@ async function deleteTodo(id){
   const response=await fetch(`https://jsonplaceholder.typicode.com/todos/${id}`, {
     method: 'DELETE'
   });
-  
+  throw new Error('Delete failed');
   return id;
 }
 
