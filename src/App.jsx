@@ -60,7 +60,9 @@ function App() {
       })
       return {previousTodos};
     },
-    onError
+    onError:(err, deletedId, context)=>{
+      
+    }
   })
 
   if(isLoading){
