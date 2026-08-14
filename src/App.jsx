@@ -76,7 +76,7 @@ function App() {
   return (
     <>
       <section id="center">
-        <ul>
+        <ul className='text-red-300'>
           {data.map((todo)=>(
             <li key={todo.id}>{todo.title}
             <button onClick={()=>{deleteMutation.mutate(todo.id)}}>X</button>
