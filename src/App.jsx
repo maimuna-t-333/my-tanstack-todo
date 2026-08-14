@@ -59,7 +59,8 @@ function App() {
         return oldTodos.filter((todo)=>todo.id!==deletedId);
       })
       return {previousTodos};
-    }
+    },
+    onError
   })
 
   if(isLoading){
