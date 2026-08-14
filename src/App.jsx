@@ -40,11 +40,11 @@ function App() {
 
   const mutation=useMutation({
     mutationFn:addTodo,
-    onSuccess:(newTodo)=>{
-      queryClient.setQueryData(['todos'],(oldTodos)=>{
-         return [newTodo, ...oldTodos];
-      })
-    }
+    onSuccess: (newTodo) => {
+  queryClient.setQueryData(['todos'], (oldTodos) => {
+    return [newTodo, ...oldTodos];
+  });
+}
   })
 
   const deleteMutation=useMutation({
