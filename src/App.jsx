@@ -74,28 +74,52 @@ function App() {
   }
 
   return (
-    <>
-      <section id="center">
-        <ul className='text-red-300'>
-          {data.map((todo)=>(
-            <li key={todo.id}>{todo.title}
-            <button onClick={()=>{deleteMutation.mutate(todo.id)}}>X</button>
-            </li>
-          ))}
-        </ul>
-        
-        <form onSubmit={(e)=>{
+  <>
+    <section id="center" className="max-w-md mx-auto mt-10 p-6 bg-white rounded-xl shadow-md">
+      <h1 className="text-2xl font-bold text-gray-800 mb-4">My Todos</h1>
+
+      <form
+        onSubmit={(e) => {
           e.preventDefault();
-          mutation.mutate(title)
-        }}>
-           <input value={title} onChange={(e)=>{
-          setTitle(e.target.value)
-        }}/>
-        <button type="submit">Add</button>
-          </form>
-      </section>
-    </>
-  )
+          mutation.mutate(title);
+        }}
+        className="flex gap-2 mb-6"
+      >
+        <input
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          placeholder="Add a new todo..."
+          className="flex-1 border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+        />
+        <button
+          type="submit"
+          className="bg-blue-500 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-600 transition"
+        >
+          Add
+        </button>
+      </form>
+
+      <ul className="space-y-2">
+        {data.map((todo) => (
+          <li
+            key={todo.id}
+            className="flex items-center justify-between bg-gray-50 border border-gray-200 rounded-lg px-3 py-2"
+          >
+            <span className="text-gray-700 text-sm">{todo.title}</span>
+            <button
+              onClick={() => {
+                deleteMutation.mutate(todo.id);
+              }}
+              className="text-red-500 hover:text-red-700 text-sm font-medium"
+            >
+              ✕
+            </button>
+          </li>
+        ))}
+      </ul>
+    </section>
+  </>
+);
 }
 
 export default App
