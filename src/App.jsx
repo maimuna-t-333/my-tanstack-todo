@@ -54,7 +54,9 @@ function App() {
       })
     },
     onMutate:async(deletedId)=>{
-      await queryClient.cancelQueries(['todos']);
+      await queryClient.setQueryData(['todos'],(oldTodos)=>{
+        re
+      })
     }
   })
 
