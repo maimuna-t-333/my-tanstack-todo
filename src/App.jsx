@@ -37,7 +37,7 @@ function App() {
     queryFn:fetchData,
     staleTime: 30000
   });
-
+   
   const mutation=useMutation({
     mutationFn:addTodo,
     onSuccess: (newTodo) => {
